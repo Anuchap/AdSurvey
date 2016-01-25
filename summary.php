@@ -15,7 +15,7 @@ if(!is_file($inputFileName)) {
 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);  
 $objReader = PHPExcel_IOFactory::createReader($inputFileType);  
 $objReader->setReadDataOnly(true);  
-$objPHPExcel = $objReader->load($inputFileName);  
+$objPHPExcel = $objReader->load($inputFileName); 
 
 $objWorksheet15 = $objPHPExcel->setActiveSheetIndex(2);
 $objWorksheet16 = $objPHPExcel->setActiveSheetIndex(3);
