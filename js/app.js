@@ -92,8 +92,8 @@ myApp.directive('mypopover', function () {
 
             var table = '';
             switch (type) {
-                case 1:
-                    table = '<table class="table table-bordered" style="margin-bottom:0">\
+            case 1:
+                table = '<table class="table table-bordered" style="margin-bottom:0">\
                                 <tr class="detail-header">\
                                     <td class="text-center">Direct(%)</td>\
                                     <td class="text-center">Ad Network(%)</td>\
@@ -105,12 +105,12 @@ myApp.directive('mypopover', function () {
                                     <td class="text-center">' + d.programetic + '%</td>\
                                 </tr>\
                             </table>';
-                    break;
-                case 2:
-                    table = '<table class="table table-bordered" style="margin-bottom:0">\
+                break;
+            case 2:
+                table = '<table class="table table-bordered" style="margin-bottom:0">\
                                 <tr class="detail-header">\
                                     <td colspan="2" class="text-center">Display(%)</td>\
-                                    <td colspan="2" class="text-center">Vedio(%)</td>\
+                                    <td colspan="2" class="text-center">Video(%)</td>\
                                 </tr>\
                                 <tr class="' + (d.display.isvalid ? '' : 'text-danger') + '">\
                                     <td colspan="2" class="text-center">' + d.display.value + '%</td>\
@@ -129,9 +129,9 @@ myApp.directive('mypopover', function () {
                                     <td class="text-center ' + (d.video.level2.isvalid ? '' : 'text-danger') + '">' + d.video.level2.mobile + '%</td>\
                                 </tr>\
                             </table>';
-                    break;
-                case 3:
-                    table = '<table class="table table-bordered" style="margin-bottom:0">\
+                break;
+            case 3:
+                table = '<table class="table table-bordered" style="margin-bottom:0">\
                                 <tr class="detail-header">\
                                     <td class="text-center">Display(%)</td>\
                                     <td class="text-center">Video(%)</td>\
@@ -141,9 +141,9 @@ myApp.directive('mypopover', function () {
                                     <td class="text-center">' + d.video + '%</td>\
                                 </tr>\
                             </table>';
-                    break;
-                case 4:
-                    table = '<table class="table table-bordered" style="margin-bottom:0">\
+                break;
+            case 4:
+                table = '<table class="table table-bordered" style="margin-bottom:0">\
                                 <tr class="detail-header">\
                                     <td class="text-center">Online Video<br/>Production(%)</td>\
                                     <td class="text-center">Web Banner & App<br/>Production(%)</td>\
@@ -155,7 +155,7 @@ myApp.directive('mypopover', function () {
                                     <td class="text-center">' + d.social + '%</td>\
                                 </tr>\
                             </table>';
-                    break;
+                break;
             }
 
             var settings = {
@@ -365,20 +365,20 @@ myApp.controller('questCtrl', function ($scope, $http, $state, $stateParams, sto
         }
         var optional = '';
         switch ($scope.ans1) {
-            case '1':
-                if (!$scope.ans11) {
-                    alert('Please, indicate percentage.');
-                    return;
-                }
-                optional = $scope.ans11;
-                break;
-            case '3':
-                if (!$scope.ans13) {
-                    alert('Please, indicate percentage.');
-                    return;
-                }
-                optional = $scope.ans13;
-                break;
+        case '1':
+            if (!$scope.ans11) {
+                alert('Please, indicate percentage.');
+                return;
+            }
+            optional = $scope.ans11;
+            break;
+        case '3':
+            if (!$scope.ans13) {
+                alert('Please, indicate percentage.');
+                return;
+            }
+            optional = $scope.ans13;
+            break;
         }
         $http.post('answer.php', {
             uid: $stateParams.uid,

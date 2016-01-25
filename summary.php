@@ -57,26 +57,26 @@ function getDisciplines($cellConfig, $objWorksheet, $i) {
 		// find detail
 		switch($discipline->type) {
 			case 1: // { direct: 10, adnetwork: 20, programetic: 70, isvalid: true }
-				$discipline->detail->direct = $objWorksheet->getCell($c->detailCells->direct . ($i + 2))->getValue() * 100;
-				$discipline->detail->adnetwork = $objWorksheet->getCell($c->detailCells->adnetwork . ($i + 2))->getValue() * 100;
-				$discipline->detail->programetic = $objWorksheet->getCell($c->detailCells->programetic . ($i + 2))->getValue() * 100;
+				$discipline->detail->direct = round($objWorksheet->getCell($c->detailCells->direct . ($i + 2))->getValue() * 100);
+				$discipline->detail->adnetwork = round($objWorksheet->getCell($c->detailCells->adnetwork . ($i + 2))->getValue() * 100);
+				$discipline->detail->programetic = round($objWorksheet->getCell($c->detailCells->programetic . ($i + 2))->getValue() * 100);
 				$discipline->detail->isvalid = $discipline->value == 0 
 					|| ($discipline->detail->direct + $discipline->detail->adnetwork + $discipline->detail->programetic) == 100; 
 			break;
 			case 2: // { display: { value: 50, isvalid: true, level2: { desktop: 10, mobile: 90, isvalid: true } }, video: { value: 50, isvalid: true, level2: { desktop: 60, mobile: 40, isvalid: true } } }
 				$discipline->detail->display = new StdClass;
-				$discipline->detail->display->value = $objWorksheet->getCell($c->detailCells->display->cell . ($i + 2))->getValue() * 100;
+				$discipline->detail->display->value = round($objWorksheet->getCell($c->detailCells->display->cell . ($i + 2))->getValue() * 100);
 				$discipline->detail->display->level2 = new StdClass;
-				$discipline->detail->display->level2->desktop = $objWorksheet->getCell($c->detailCells->display->desktop . ($i + 4))->getValue() * 100;
-				$discipline->detail->display->level2->mobile = $objWorksheet->getCell($c->detailCells->display->mobile . ($i + 4))->getValue() * 100;
+				$discipline->detail->display->level2->desktop = round($objWorksheet->getCell($c->detailCells->display->desktop . ($i + 4))->getValue() * 100);
+				$discipline->detail->display->level2->mobile = round($objWorksheet->getCell($c->detailCells->display->mobile . ($i + 4))->getValue() * 100);
 				$discipline->detail->display->level2->isvalid = $discipline->detail->display->value == 0 
 					|| ($discipline->detail->display->level2->desktop + $discipline->detail->display->level2->mobile) == 100; 
 				
 				$discipline->detail->video = new StdClass;
-				$discipline->detail->video->value = $objWorksheet->getCell($c->detailCells->video->cell . ($i + 2))->getValue() * 100;
+				$discipline->detail->video->value = round($objWorksheet->getCell($c->detailCells->video->cell . ($i + 2))->getValue() * 100);
 				$discipline->detail->video->level2 = new StdClass;
-				$discipline->detail->video->level2->desktop = $objWorksheet->getCell($c->detailCells->video->desktop . ($i + 4))->getValue() * 100;
-				$discipline->detail->video->level2->mobile = $objWorksheet->getCell($c->detailCells->video->mobile . ($i + 4))->getValue() * 100;
+				$discipline->detail->video->level2->desktop = round($objWorksheet->getCell($c->detailCells->video->desktop . ($i + 4))->getValue() * 100);
+				$discipline->detail->video->level2->mobile = round($objWorksheet->getCell($c->detailCells->video->mobile . ($i + 4))->getValue() * 100);
 				$discipline->detail->video->level2->isvalid = $discipline->detail->video->value == 0 
 					|| ($discipline->detail->video->level2->desktop + $discipline->detail->video->level2->mobile) == 100; 
 				
@@ -85,15 +85,15 @@ function getDisciplines($cellConfig, $objWorksheet, $i) {
 				$discipline->detail->video->isvalid = $discipline->detail->display->isvalid;
 			break;
 			case 3: // { display: 10, video: 90, isvalid: true }
-				$discipline->detail->display = $objWorksheet->getCell($c->detailCells->display . ($i + 2))->getValue() * 100;
-				$discipline->detail->video = $objWorksheet->getCell($c->detailCells->video . ($i + 2))->getValue() * 100;
+				$discipline->detail->display = round($objWorksheet->getCell($c->detailCells->display . ($i + 2))->getValue() * 100);
+				$discipline->detail->video = round($objWorksheet->getCell($c->detailCells->video . ($i + 2))->getValue() * 100);
 				$discipline->detail->isvalid = $discipline->value == 0 
 					|| ($discipline->detail->display + $discipline->detail->video) == 100; 
 			break;
 			case 4: // { video: 10, banner: 20, social: 70, isvalid: true }
-				$discipline->detail->video = $objWorksheet->getCell($c->detailCells->video . ($i + 2))->getValue() * 100;
-				$discipline->detail->banner = $objWorksheet->getCell($c->detailCells->banner . ($i + 2))->getValue() * 100;
-				$discipline->detail->social = $objWorksheet->getCell($c->detailCells->social . ($i + 2))->getValue() * 100;
+				$discipline->detail->video = round($objWorksheet->getCell($c->detailCells->video . ($i + 2))->getValue() * 100);
+				$discipline->detail->banner = round($objWorksheet->getCell($c->detailCells->banner . ($i + 2))->getValue() * 100);
+				$discipline->detail->social = round($objWorksheet->getCell($c->detailCells->social . ($i + 2))->getValue() * 100);
 				$discipline->detail->isvalid = $discipline->value == 0 
 					|| ($discipline->detail->video + $discipline->detail->banner + $discipline->detail->social) == 100; 
 			break;
@@ -102,37 +102,37 @@ function getDisciplines($cellConfig, $objWorksheet, $i) {
 		// verify
 		if($c->totalCell == 'K') {
 			$percent = $objWorksheet->getCell($c->percentCell . ($i + 2))->getCalculatedValue();
-			$discipline->isvalid = ($discipline->value == 0) ? ($percent == 0) : ($percent == 1);
+			$discipline->isvalid = ($discipline->value == 0) ? eq($percent, 0) : eq($percent, 1);
 			
 			if($discipline->isvalid) {
 				$value = $objWorksheet->getCell('K' . ($i + 2))->getValue();
 				$percent = $objWorksheet->getCell('M' . ($i + 4))->getCalculatedValue();
-				$discipline->isvalid = ($value == 0) ? ($percent == 0) : ($percent == 1);
+				$discipline->isvalid = ($value == 0) ? eq($percent, 0) : eq($percent, 1);
 				
 				if($discipline->isvalid) {
 					$value = $objWorksheet->getCell('N' . ($i + 2))->getValue();
 					$percent = $objWorksheet->getCell('P' . ($i + 4))->getCalculatedValue();
-					$discipline->isvalid = ($value == 0) ? ($percent == 0) : ($percent == 1);
+					$discipline->isvalid = ($value == 0) ? eq($percent, 0) : eq($percent, 1);
 				}
 			}
 		} else if($c->totalCell == 'Q') {
 			$percent = $objWorksheet->getCell($c->percentCell . ($i + 2))->getCalculatedValue();
-			$discipline->isvalid = ($discipline->value == 0) ? ($percent == 0) : ($percent == 1);
+			$discipline->isvalid = ($discipline->value == 0) ? eq($percent, 0) : eq($percent, 1);
 			
 			if($discipline->isvalid) {
 				$value = $objWorksheet->getCell('Q' . ($i + 2))->getValue();
 				$percent = $objWorksheet->getCell('S' . ($i + 4))->getCalculatedValue();
-				$discipline->isvalid = ($value == 0) ? ($percent == 0) : ($percent == 1);
+				$discipline->isvalid = ($value == 0) ? eq($percent, 0) : eq($percent, 1);
 				
 				if($discipline->isvalid) {
 					$value = $objWorksheet->getCell('T' . ($i + 2))->getValue();
 					$percent = $objWorksheet->getCell('V' . ($i + 4))->getCalculatedValue();
-					$discipline->isvalid = ($value == 0) ? ($percent == 0) : ($percent == 1);
+					$discipline->isvalid = ($value == 0) ? eq($percent, 0) : eq($percent, 1);
 				}
 			}
 		} else if($c->percentCell != null) {
 			$percent = $objWorksheet->getCell($c->percentCell . ($i + 2))->getCalculatedValue();
-			$discipline->isvalid = ($discipline->value == 0) ? ($percent == 0) : ($percent == 1);
+			$discipline->isvalid = ($discipline->value == 0) ? eq($percent, 0) : eq($percent, 1);
 		}
 		
 		$disciplines[] = $discipline;
@@ -140,6 +140,13 @@ function getDisciplines($cellConfig, $objWorksheet, $i) {
 	
 	return $disciplines;
 }
+
+function eq($float1, $float2) {
+    $epsilon = 0.00001;
+    $float1 = (float)$float1;  
+    $float2 = (float)$float2; 
+    return abs($float1 - $float2) < $epsilon;
+}  
 
 // header('Content-type: text/html;charset=utf-8');
 // var_dump($list);
