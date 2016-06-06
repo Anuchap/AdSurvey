@@ -384,7 +384,7 @@ myApp.controller('questCtrl', function ($scope, $http, $state, $stateParams, sto
             uid: $stateParams.uid,
             qno: 1,
             answer: $scope.ans1,
-            optional: optional
+            optional: optional | ''
         }).success(function () {
             store.a1 = $scope.ans1;
             store.a11 = $scope.ans11;
@@ -437,7 +437,7 @@ myApp.controller('questCtrl', function ($scope, $http, $state, $stateParams, sto
             uid: $stateParams.uid,
             qno: 3,
             answer: $scope.ans3 + '',
-            optional: null
+            optional: ''
         }).success(function () {
             store.a3 = $scope.ans3;
             $state.go('quest4', {
@@ -451,7 +451,7 @@ myApp.controller('questCtrl', function ($scope, $http, $state, $stateParams, sto
             uid: $stateParams.uid,
             qno: 4,
             answer: $scope.slider2.value,
-            optional: null
+            optional: ''
         }).success(function () {
             $http.get('finished.php?uid=' + $stateParams.uid).success(function () {
                 store.a5 = $scope.slider2.value;
